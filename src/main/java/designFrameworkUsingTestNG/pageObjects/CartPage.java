@@ -48,8 +48,9 @@ public class CartPage extends AbstractComponents {
 	}
 	
 	// Go to checkout page
-	public void goToCheckOutPage(String cvv) {
+	public CheckOutPage goToCheckOutPage() {
 		checkOutBtn.click();
+		return new CheckOutPage(driver);
 	}
 
 }

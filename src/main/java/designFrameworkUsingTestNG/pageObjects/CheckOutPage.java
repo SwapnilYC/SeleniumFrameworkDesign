@@ -29,12 +29,12 @@ public class CheckOutPage extends AbstractComponents {
 	@FindBy(xpath = "(//input [@class='input txt'])[1]")
 	WebElement cvvField;
 
-	@FindBy(xpath="//input[@placeholder='Select Country']")
+	@FindBy(xpath = "//input[@placeholder='Select Country']")
 	WebElement enterCountryField;
-	
-	@FindBy(css="section [class*=list-group] button")
+
+	@FindBy(css = "section [class*=list-group] button")
 	List<WebElement> countryList;
-	
+
 	@FindBy(xpath = "// div[@class='actions']//a")
 	WebElement placeOrderBtn;
 
@@ -48,14 +48,14 @@ public class CheckOutPage extends AbstractComponents {
 		waitForWebElementLocatedByToAppear(cvvFieldBy);
 		cvvField.sendKeys(cvv);
 	}
-	
+
 	// Select country
-	public void selectCountry(String countryInitials, String countryName) {
+	public void selectCountry(String countryInitials, String targetCountryName) {
 		Actions a = new Actions(driver);
 		a.sendKeys(enterCountryField, countryInitials).build().perform();
 		waitForWebElementLocatedByToAppear(countryOptionsBy);
-		WebElement desiredCountry = countryList.stream()
-				.filter(country -> country.findElement(By.cssSelector("span")).getText().equalsIgnoreCase(countryName))
+		WebElement desiredCountry = countryList.stream().filter(
+				country -> country.findElement(By.cssSelector("span")).getText().equalsIgnoreCase(targetCountryName))
 				.findFirst().orElse(null);
 		if (desiredCountry != null) {
 			desiredCountry.click();
@@ -64,9 +64,9 @@ public class CheckOutPage extends AbstractComponents {
 			driver.quit();
 		}
 	}
-	
+
 //	Go to Order summary page
-	public OrderSummaryPage goToOrderSummaryPage(){
+	public OrderSummaryPage goToOrderSummaryPage() {
 		placeOrderBtn.click();
 		return new OrderSummaryPage(driver);
 	}

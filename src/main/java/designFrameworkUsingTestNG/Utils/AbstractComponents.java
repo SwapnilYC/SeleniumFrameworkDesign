@@ -68,7 +68,7 @@ public class AbstractComponents {
 		waitForWebElementToAppear(toasterPopUp);
 		waitForWebElementToDisppear(loaderOverlay);
 		// Watch lecture 164
-		Thread.sleep(1500);
+		Thread.sleep(1000);
 //			waitForWebElementToBeClickable(goToCartBtn);
 		goToCartBtn.click();
 		return new CartPage(driver);

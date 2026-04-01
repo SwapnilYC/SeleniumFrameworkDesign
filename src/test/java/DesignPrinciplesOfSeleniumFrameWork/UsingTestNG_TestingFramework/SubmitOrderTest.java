@@ -24,7 +24,7 @@ public class SubmitOrderTest {
 		String productName = "iphone 13 pro".toUpperCase();
 		String cvv = "123";
 		String countryInitials = "ind";
-		String countryName = "India";
+		String targetCountryName = "India";
 
 		// 0. Initial setup
 		WebDriver driver = new ChromeDriver();
@@ -47,7 +47,7 @@ public class SubmitOrderTest {
 		// 4. Go to checkOut page (enter cvv -> select country)
 		CheckOutPage checkOutpage = cartPage.goToCheckOutPage();
 		checkOutpage.fillCVV(cvv);
-		checkOutpage.selectCountry(countryInitials, countryName);
+		checkOutpage.selectCountry(countryInitials, targetCountryName);
 
 		// 5. go to Order summary page & check is order placed successfully
 		OrderSummaryPage summaryPage = checkOutpage.goToOrderSummaryPage();

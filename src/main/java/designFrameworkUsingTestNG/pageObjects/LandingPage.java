@@ -37,9 +37,10 @@ public class LandingPage extends AbstractComponents {
 		driver.get("https://www.rahulshettyacademy.com/client");
 	}
 
-	public void loginApp(String username, String password) {
+	public PoductCataloguePage loginApp(String username, String password) {
 		userNamefield.sendKeys(username);
 		passwordfield.sendKeys(password);
 		loginBtn.click();
+		return new PoductCataloguePage(driver);
 	}
 }

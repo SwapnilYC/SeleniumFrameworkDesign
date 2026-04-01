@@ -1,12 +1,10 @@
 package designFrameworkUsingTestNG.pageObjects;
 
 // 5th page
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -30,11 +28,11 @@ public class OrderSummaryPage extends AbstractComponents {
 	WebElement confirmationMessageEl;
 
 	// By locators
-	By confirmationMessageBy =By.tagName("h1");
+	By confirmationMessageBy = By.tagName("h1");
 
 // Methods/Actions On Elements----------------------------------------------------------------------------
 //	check isOrderPlaced
-	public Boolean isOrderPlaced(){
+	public Boolean isOrderPlaced() {
 		waitForWebElementLocatedByToAppear(confirmationMessageBy);
 		String actualConfirmMessage = confirmationMessageEl.getText();
 		System.out.println(actualConfirmMessage);
@@ -42,5 +40,5 @@ public class OrderSummaryPage extends AbstractComponents {
 		Boolean areMessageSame = actualConfirmMessage.equalsIgnoreCase(requiredConfirmationMessage);
 		return areMessageSame;
 	}
-	
+
 }
