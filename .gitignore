@@ -1,0 +1,51 @@
+# Maven
+target/
+
+# Logs
+*.log
+
+# Temp files
+*.tmp
+*.class
+*.classpath
+
+# TestNG
+test-output/
+
+# Reports
+allure-results/
+allure-report/
+surefire-reports/
+failsafe-reports/
+
+# Screenshots
+screenshots/
+
+# IDE
+.idea/
+*.iml
+.project
+.settings/
+.classpath
+
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
+# Maven wrapper
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Backup files
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
