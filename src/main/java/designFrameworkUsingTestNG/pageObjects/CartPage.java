@@ -25,15 +25,6 @@ public class CartPage extends AbstractComponents {
 
 // Locators/Elements------------------------------------------------------------------------------------
 	// PageFactory Annotation
-	@FindBy(css = ".ng-animating")
-	WebElement loaderOverlay;
-
-	@FindBy(id = "toast-container")
-	WebElement toasterPopUp;
-
-	@FindBy(xpath = "//button[contains(@routerlink,'cart')]")
-	WebElement goToCartBtn;
-
 	@FindBy(xpath = "//div[@class='cart']//li")
 	List<WebElement> cartProducts;
 
@@ -43,16 +34,6 @@ public class CartPage extends AbstractComponents {
 	By productsInCart = By.className("cart");
 
 // Methods/Actions On Elements----------------------------------------------------------------------------
-	// Wait to appear toaster & disappear loader then click go to cart btn
-	public void goToCartPage() throws InterruptedException {
-		waitForWebElementToAppear(toasterPopUp);
-		waitForWebElementToDisppear(loaderOverlay);
-		// Watch lecture 164
-		Thread.sleep(1500);
-		waitForWebElementToBeClickable(goToCartBtn);
-		goToCartBtn.click();
-	}
-
 	// Wait for Elements to load in cart page & check that newly added product is
 	// present in cart
 	public Boolean isProductPresent(String productName) {
