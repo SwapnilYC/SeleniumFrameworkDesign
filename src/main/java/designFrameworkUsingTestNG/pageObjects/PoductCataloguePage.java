@@ -1,4 +1,5 @@
 package designFrameworkUsingTestNG.pageObjects;
+
 // 2nd page
 import java.util.List;
 
@@ -29,35 +30,32 @@ public class PoductCataloguePage extends AbstractComponents {
 
 	@FindBy(className = "card-body")
 	List<WebElement> productsList;
-	
-	@FindBy(xpath="")
-	WebElement addToCartBtn;
-	
+
 	// By locators
 	By addToCartBtnBy = By.xpath(".//button[2]");
-
 
 // Methods/Actions On Elements----------------------------------------------------------------------------
 	// Wait to load all products then add them in a list
 	public List<WebElement> getProductList() {
-		waitForWebElementToAppear(productsContainer);  // first wait to products get loaded
+		waitForWebElementToAppear(productsContainer); // first wait to products get loaded
 		return productsList; // then return the products list
 	}
-	
-	//Search for product by name
+
+	// Search for product by name
 	public WebElement getProductByName(String productName) {
 		List<WebElement> productsList = getProductList();
 		return productsList.stream()
 				.filter(product -> product.findElement(By.tagName("b")).getText().equalsIgnoreCase(productName))
 				.findFirst().orElse(null);
 	}
-	
+
 	// Add the selected product to cart
 	public void addTocart(String productName) {
 		WebElement selectedProduct = getProductByName(productName);
-		WebElement addToCartBtn = selectedProduct.findElement(addToCartBtnBy);  // can't use page factory for relative element search
-		waitForWebElementToBeClickable(addToCartBtn);
+		WebElement addToCartBtn = selectedProduct.findElement(addToCartBtnBy); // can't use page factory for relative
+																				// element search
+//		waitForWebElementToBeClickable(addToCartBtn);
 		addToCartBtn.click();
 	}
-	
+
 }

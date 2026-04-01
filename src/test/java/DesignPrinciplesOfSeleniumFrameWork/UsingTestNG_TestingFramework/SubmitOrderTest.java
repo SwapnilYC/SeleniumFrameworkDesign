@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import designFrameworkUsingTestNG.pageObjects.CartPage;
+import designFrameworkUsingTestNG.pageObjects.CheckOutPage;
 import designFrameworkUsingTestNG.pageObjects.LandingPage;
 import designFrameworkUsingTestNG.pageObjects.PoductCataloguePage;
 
@@ -23,10 +25,13 @@ public class SubmitOrderTest {
 		String userName = "prashantShethManus1@gmail.com";
 		String password = "IamKing@123";
 		String productName = "iphone 13 pro".toUpperCase();
+		String cvv = "123";
+		String countryInitials = "ind";
+		String countryName = "India";
 		
 		// 0. Initial setup
 		WebDriver driver = new ChromeDriver();
-		driver.manage().window().setSize(new Dimension(1920, 1080)); // for CI/CD this dimention is recommended
+		driver.manage().window().setSize(new Dimension(1920, 1080)); 
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 		// 1. Go to landing page & Logged in with valid credentials---------------------------------------------------------------------------
@@ -34,90 +39,30 @@ public class SubmitOrderTest {
 		landingPage.goTo();
 		landingPage.loginApp(userName, password);
 
-		// 2. Wait till all products are loaded & Once all products are loaded please store all products in one list & Capture the required product--------------------------
+		// 2. Products catalog page -> wait to load elements -> store elements in list -> iterate & search for desired element -> store & add to cart--------------------------
 		PoductCataloguePage productCatPage = new PoductCataloguePage(driver);
-		WebElement selectedProduct = productCatPage.getProductByName(productName);
+		productCatPage.addTocart(productName);
 
-		// 6. Now add this captured product in cart
-		addTocart(driver, selectedProduct, wait1);
+		// 3. Go to cart page (Wait for toaster to appear & loader to disappear)
+		CartPage cartPage = new CartPage(driver);
+		cartPage.goToCartPage();
 
-		// 7. Wait for toast message to appear & loader to get disappear
-		toasterAndLoaderWait(wait1, driver);
+		// 4. Wait -> all elements to be loaded in cart section -> save in list -> verify that our added product is present
+		Assert.assertTrue(cartPage.isProductPresent(productName));
 
-		// 8. Click on cart button & go to cart page
-		goTocartPage(driver, wait1);
-
-		// 9. Wait for all elements to be loaded in cart section
-		wait1.until(ExpectedConditions.visibilityOfElementLocated(By.className("cart")));
-
-		// 10. Save all those items in a list & verify that our added product is present
-		isProductPresentIncart(driver, productName);
-
-		// 11. Go to checkOut page
-		goToCheckoutPage(driver, wait1);
-
-		// 12. select country
-		String countryInitials = "ind";
-		String countryName = "India";
-		selectCountry(driver, wait1, countryInitials, countryName);
-
-		// 13. go to Order summary page
-		goToOrderConfirmationPage(driver, wait1);
-
-		// 14. Quit the browser
-		driver.quit();
+		// 5. Go to checkOut page (Wait to appear cvv field -> enter cvv -> select country)
+		CheckOutPage checkOutpage = new CheckOutPage(driver);
+		checkOutpage.goToCheckOutPage(cvv);
+		checkOutpage.selectCountry( countryInitials,  countryName);
+//
+//		// 13. go to Order summary page
+//		goToOrderConfirmationPage(driver, wait1);
+//
+//		// 14. Quit the browser
+//		driver.quit();
 
 	}
 
-// Go to URL
-	public static void landingPage(WebDriver driver, String url) {
-		driver.get(url);
-	}
-
-// Search for desired product & store it an web element
-	public static WebElement searchAndStore(WebDriver driver, List<WebElement> productsList, String productName) {
-		return productsList.stream()
-				.filter(product -> product.findElement(By.tagName("b")).getText().equalsIgnoreCase(productName))
-				.findFirst().orElse(null);
-	}
-
-// Add the desired product to cart
-	public static void addTocart(WebDriver driver, WebElement selectedProduct, WebDriverWait wait1) {
-		WebElement addToCartBtn = selectedProduct.findElement(By.xpath(".//button[2]"));
-		wait1.until(ExpectedConditions.elementToBeClickable(addToCartBtn));
-		addToCartBtn.click();
-	}
-
-// Wait for toast message to appear & loader to get disappear
-	public static void toasterAndLoaderWait(WebDriverWait wait1, WebDriver driver) {
-		// wait to load toaster success message
-		WebElement loaderOverlay = driver.findElement(By.cssSelector(".ng-animating"));
-		wait1.until(ExpectedConditions.visibilityOfElementLocated(By.id("toast-container")));
-		wait1.until(ExpectedConditions.invisibilityOf(loaderOverlay));
-		// These waits run sequentially: First wait completes Then second wait starts
-	}
-
-// Click on cart button & go to cart page
-	public static void goTocartPage(WebDriver driver, WebDriverWait wait1) {
-		WebElement goToCart = driver.findElement(By.xpath("//button[contains(@routerlink,'cart')]"));
-//		wait1.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@routerlink,'cart')]")));
-		wait1.until(ExpectedConditions.elementToBeClickable(goToCart));
-		goToCart.click();
-	}
-
-// Save all those items in a list & verify that our added product is present
-	public static void isProductPresentIncart(WebDriver driver, String productName) {
-		List<WebElement> cartProducts = driver.findElements(By.xpath("//div[@class='cart']//li"));
-		Assert.assertTrue(cartProducts.stream()
-				.anyMatch(e -> e.findElement(By.tagName("h3")).getText().equalsIgnoreCase(productName)));
-	}
-
-// Go to checkout page
-	public static void goToCheckoutPage(WebDriver driver, WebDriverWait wait1) {
-		driver.findElement(By.xpath("//div[contains(@class,'subtotal')]//button")).click(); // click on checkout btn
-		wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input [@class='input txt'])[1]")));
-		driver.findElement(By.xpath("(//input [@class='input txt'])[1]")).sendKeys("123"); // csv
-	}
 
 // Select country
 	public static void selectCountry(WebDriver driver, WebDriverWait wait1, String countryInitials,

@@ -20,8 +20,8 @@ public class StandAloneTest {
 		WebDriver driver = new ChromeDriver();
 //		driver.manage().window().setSize(new Dimension(1366, 768));
 
-//		driver.manage().window().setSize(new Dimension(1920, 1080)); // for CI/CD this dimention is recommended
-		driver.manage().window().maximize();
+		driver.manage().window().setSize(new Dimension(1920, 1080)); // for CI/CD this dimension is recommended
+//		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 		// 1. Go to landing page
