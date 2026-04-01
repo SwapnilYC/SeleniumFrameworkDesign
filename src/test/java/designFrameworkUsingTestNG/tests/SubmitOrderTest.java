@@ -29,12 +29,9 @@ public class SubmitOrderTest extends BaseTest {
 		String countryInitials = "ind";
 		String targetCountryName = "India";
 
-		// 0. Initial setup
-		WebDriver driver = initializeDriver();
-
 		// 1. landing page -> Logged in with valid credentials---------------------------------------------------------------------------
-		LandingPage landingPage = new LandingPage(driver);
-		landingPage.goTo();
+			//Added in base test
+		 LandingPage landingPage = launchApp();
 		
 		// 2. Products catalog page -> Add desired product to cart-----------------------------------------------------------------------
 		PoductCataloguePage productCatPage = landingPage.loginApp(userName, password); 
