@@ -1,19 +1,13 @@
 package designFrameworkUsingTestNG.tests;
 
 import java.io.IOException;
-import java.time.Duration;
-
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import designFrameworkUsingTestNG.pageObjects.CartPage;
 import designFrameworkUsingTestNG.pageObjects.CheckOutPage;
-import designFrameworkUsingTestNG.pageObjects.LandingPage;
+
 import designFrameworkUsingTestNG.pageObjects.OrderSummaryPage;
 import designFrameworkUsingTestNG.pageObjects.PoductCataloguePage;
 import designFrameworkUsingTestNG.reusableTestComponents.BaseTest;
@@ -29,30 +23,34 @@ public class SubmitOrderTest extends BaseTest {
 		String countryInitials = "ind";
 		String targetCountryName = "India";
 
-		// 1. landing page -> Logged in with valid credentials---------------------------------------------------------------------------
-			//Added in base test
-		 LandingPage landingPage = launchApp();
-		
-		// 2. Products catalog page -> Add desired product to cart-----------------------------------------------------------------------
-		PoductCataloguePage productCatPage = landingPage.loginApp(userName, password); 
-		productCatPage.addTocart(productName);
-		
+		// 1. landing page
+		// ------------------------------------------------------------------------------------------------
+		// moved to base test
 
-		// 3. Go to cart page & verify that our added product is present
+		// 2. Products catalog page -> Add desired product to
+		// cart-----------------------------------------------------------------------------------------------------------
+		PoductCataloguePage productCatPage = landingPage.loginApp(userName, password);
+		productCatPage.addTocart(productName);
+
+		// 3. Go to cart page & verify that our added product is
+		// present-----------------------------------------------------
 		CartPage cartPage = productCatPage.goToCartPage();
 		Assert.assertTrue(cartPage.isProductPresent(productName));
 
-		// 4. Go to checkOut page (enter cvv -> select country)
+		// 4. Go to checkOut page (enter cvv -> select
+		// country)--------------------------------------------------------------
 		CheckOutPage checkOutpage = cartPage.goToCheckOutPage();
 		checkOutpage.fillCVV(cvv);
 		checkOutpage.selectCountry(countryInitials, targetCountryName);
 
-		// 5. go to Order summary page & check is order placed successfully
+		// 5. go to Order summary page & check is order placed
+		// successfully-------------------------------------------------
 		OrderSummaryPage summaryPage = checkOutpage.goToOrderSummaryPage();
 		Assert.assertTrue(summaryPage.isOrderPlaced());
 
-		// 6. Quit the browser
-		driver.quit();
+		// 6. Quit the
+		// browser----------------------------------------------------------------------------------------------
+		// moved to base test
 
 	}
 

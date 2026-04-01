@@ -10,13 +10,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import designFrameworkUsingTestNG.pageObjects.LandingPage;
 
 public class BaseTest {
 	public WebDriver driver;
-
+	public LandingPage landingPage;
 	public WebDriver initializeDriver() throws IOException {
 
 		// Properties from properties class
@@ -27,28 +28,31 @@ public class BaseTest {
 		prop.load(fisObj1);
 
 		// Extract browser value
-		String browser = prop.getProperty("Browser");
-		System.out.println("Browser is: " + browser);
+		String browser = prop.getProperty("Browser").trim().toLowerCase();;
 
 		// Compare browser value & initialize webdriver accordingly
-		if (browser.contains("chrome")) {
+		if (browser.equalsIgnoreCase("chrome")) {
 			driver = new ChromeDriver();
-		} else if (browser.contains("edge")) {
+		} else if (browser.equalsIgnoreCase("edge")) {
 			driver = new EdgeDriver();
-		} else if (browser.contains("firefox")) {
+		} else if (browser.equalsIgnoreCase("firefox")) {
 			driver = new FirefoxDriver();
 		}
-		System.out.println("Browser is: " + browser);
 		driver.manage().window().setSize(new Dimension(1920, 1080));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
 		return driver;
 	}
 
-	public LandingPage launchApp() throws IOException {
-		driver = initializeDriver();
-		LandingPage landingPage = new LandingPage(driver);
+	@BeforeMethod
+	public void launchApp() throws IOException {
+		this.driver = initializeDriver();
+		landingPage = new LandingPage(driver);
 		landingPage.goTo();
-		return landingPage;
+	}
+	
+	@AfterMethod
+	public void tearDown() {
+		this.driver.quit();
 	}
 
 }
