@@ -1,5 +1,9 @@
 package designFrameworkUsingTestNG.pageObjects;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 // 1st page
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,8 +37,14 @@ public class LandingPage extends AbstractComponents {
 
 // Methods/Actions On Elements----------------------------------------------------------------------------
 
-	public void goTo() {
-		driver.get("https://www.rahulshettyacademy.com/client");
+	public void goTo() throws IOException {
+		String rootDir = System.getProperty("user.dir");
+		String fileDir = rootDir + "/src/main/java/designFrameworkUsingTestNG/resources/";
+		Properties prop = new Properties();
+		FileInputStream fisObj1 = new FileInputStream(fileDir+"qa.properties");
+		prop.load(fisObj1);
+		String url = prop.getProperty("url");
+		driver.get(url);
 	}
 
 	public PoductCataloguePage loginApp(String username, String password) {

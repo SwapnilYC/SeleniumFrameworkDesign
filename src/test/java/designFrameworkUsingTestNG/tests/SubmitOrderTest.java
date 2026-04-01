@@ -1,5 +1,6 @@
 package designFrameworkUsingTestNG.tests;
 
+import java.io.IOException;
 import java.time.Duration;
 
 import org.openqa.selenium.Dimension;
@@ -8,16 +9,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import designFrameworkUsingTestNG.pageObjects.CartPage;
 import designFrameworkUsingTestNG.pageObjects.CheckOutPage;
 import designFrameworkUsingTestNG.pageObjects.LandingPage;
 import designFrameworkUsingTestNG.pageObjects.OrderSummaryPage;
 import designFrameworkUsingTestNG.pageObjects.PoductCataloguePage;
+import designFrameworkUsingTestNG.reusableTestComponents.BaseTest;
 
-public class SubmitOrderTest {
-
-	public static void main(String[] args) throws InterruptedException {
+public class SubmitOrderTest extends BaseTest {
+	@Test
+	public void submitOrderTest() throws InterruptedException, IOException {
 		// Data required to feed
 		String userName = "prashantShethManus1@gmail.com";
 		String password = "IamKing@123";
@@ -27,9 +30,7 @@ public class SubmitOrderTest {
 		String targetCountryName = "India";
 
 		// 0. Initial setup
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().setSize(new Dimension(1920, 1080));
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebDriver driver = initializeDriver();
 
 		// 1. landing page -> Logged in with valid credentials---------------------------------------------------------------------------
 		LandingPage landingPage = new LandingPage(driver);
