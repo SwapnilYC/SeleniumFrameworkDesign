@@ -13,34 +13,30 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import designFrameworkUsingTestNG.pageObjects.LandingPage;
+import designFrameworkUsingTestNG.pageObjects.PoductCataloguePage;
 
-public class StandAloneTest {
+public class SubmitOrderTest {
 
 	public static void main(String[] args) {
+		// Data required to feed
+		String userName = "prashantShethManus1@gmail.com";
+		String password = "IamKing@123";
+		String productName = "iphone 13 pro".toUpperCase();
+		
+		// 0. Initial setup
 		WebDriver driver = new ChromeDriver();
-//		driver.manage().window().setSize(new Dimension(1366, 768));
-
-//		driver.manage().window().setSize(new Dimension(1920, 1080)); // for CI/CD this dimention is recommended
-		driver.manage().window().maximize();
+		driver.manage().window().setSize(new Dimension(1920, 1080)); // for CI/CD this dimention is recommended
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-		// 1. Go to landing page
-		landingPage(driver, "https://www.rahulshettyacademy.com/client");
+		// 1. Go to landing page & Logged in with valid credentials---------------------------------------------------------------------------
+		LandingPage landingPage = new LandingPage(driver);
+		landingPage.goTo();
+		landingPage.loginApp(userName, password);
 
-		// 2. Logged in with valid credentials
-		loginWithValidCredentials(driver, "vinayak.sheth@gmail.com", "Vin@yakS26");
-
-		// 3. Wait till all products are loaded
-		WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(5));
-		WebElement productsContainer = driver.findElement(By.className("container"));
-		wait1.until(ExpectedConditions.visibilityOf(productsContainer));
-
-		// 4. Once all products are loaded please store all products in one list
-		List<WebElement> productsList = driver.findElements(By.className("card-body"));
-
-		// 5. Capture the required product
-		String productName = "iphone 13 pro".toUpperCase();
-		WebElement selectedProduct = searchAndStore(driver, productsList, productName);
+		// 2. Wait till all products are loaded & Once all products are loaded please store all products in one list & Capture the required product--------------------------
+		PoductCataloguePage productCatPage = new PoductCataloguePage(driver);
+		WebElement selectedProduct = productCatPage.getProductByName(productName);
 
 		// 6. Now add this captured product in cart
 		addTocart(driver, selectedProduct, wait1);
@@ -67,8 +63,8 @@ public class StandAloneTest {
 
 		// 13. go to Order summary page
 		goToOrderConfirmationPage(driver, wait1);
-		
-		//14. Quit the browser
+
+		// 14. Quit the browser
 		driver.quit();
 
 	}
@@ -76,13 +72,6 @@ public class StandAloneTest {
 // Go to URL
 	public static void landingPage(WebDriver driver, String url) {
 		driver.get(url);
-	}
-
-// Login
-	public static void loginWithValidCredentials(WebDriver driver, String userName, String password) {
-		driver.findElement(By.id("userEmail")).sendKeys(userName);
-		driver.findElement(By.id("userPassword")).sendKeys(password);
-		driver.findElement(By.id("login")).click();
 	}
 
 // Search for desired product & store it an web element
@@ -103,7 +92,7 @@ public class StandAloneTest {
 	public static void toasterAndLoaderWait(WebDriverWait wait1, WebDriver driver) {
 		// wait to load toaster success message
 		WebElement loaderOverlay = driver.findElement(By.cssSelector(".ng-animating"));
-		wait1.until(ExpectedConditions.visibilityOfElementLocated(By.id("toast-container"))); 															
+		wait1.until(ExpectedConditions.visibilityOfElementLocated(By.id("toast-container")));
 		wait1.until(ExpectedConditions.invisibilityOf(loaderOverlay));
 		// These waits run sequentially: First wait completes Then second wait starts
 	}
@@ -136,7 +125,8 @@ public class StandAloneTest {
 		WebElement countrydropdown = driver.findElement(By.xpath("//input[@placeholder='Select Country']"));
 //		countrydropdown.sendKeys(countryInitials);
 		Actions a = new Actions(driver);
-		a.sendKeys(driver.findElement(By.xpath("//input[@placeholder='Select Country']")), countryInitials).build().perform();
+		a.sendKeys(driver.findElement(By.xpath("//input[@placeholder='Select Country']")), countryInitials).build()
+				.perform();
 		wait1.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section [class*=list-group]")));
 		List<WebElement> countryList = driver.findElements(By.cssSelector("section [class*=list-group] button"));
 		WebElement selectedCountry = countryList.stream()
