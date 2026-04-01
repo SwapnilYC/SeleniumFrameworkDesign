@@ -44,10 +44,11 @@ public class CartPage extends AbstractComponents {
 
 // Methods/Actions On Elements----------------------------------------------------------------------------
 	// Wait to appear toaster & disappear loader then click go to cart btn
-	public void goToCartPage() {
+	public void goToCartPage() throws InterruptedException {
 		waitForWebElementToAppear(toasterPopUp);
 		waitForWebElementToDisppear(loaderOverlay);
-		waitForWebElementToDisppear(toasterPopUp);
+		// Watch lecture 164
+		Thread.sleep(1500);
 		waitForWebElementToBeClickable(goToCartBtn);
 		goToCartBtn.click();
 	}

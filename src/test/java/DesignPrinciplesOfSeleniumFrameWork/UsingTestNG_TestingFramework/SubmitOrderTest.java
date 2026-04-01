@@ -17,7 +17,7 @@ import designFrameworkUsingTestNG.pageObjects.PoductCataloguePage;
 
 public class SubmitOrderTest {
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws InterruptedException {
 		// Data required to feed
 		String userName = "prashantShethManus1@gmail.com";
 		String password = "IamKing@123";
