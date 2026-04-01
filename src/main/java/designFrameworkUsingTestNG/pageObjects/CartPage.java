@@ -27,11 +27,15 @@ public class CartPage extends AbstractComponents {
 	// PageFactory Annotation
 	@FindBy(xpath = "//div[@class='cart']//li")
 	List<WebElement> cartProducts;
+	
+	@FindBy(xpath = "//div[contains(@class,'subtotal')]//button")
+	WebElement checkOutBtn;
 
 	// By locators
 	By tosterPopUpBy = By.id("toast-container");
 	By loaderOverlayBy = By.cssSelector(".ng-animating");
 	By productsInCart = By.className("cart");
+	
 
 // Methods/Actions On Elements----------------------------------------------------------------------------
 	// Wait for Elements to load in cart page & check that newly added product is
@@ -41,6 +45,11 @@ public class CartPage extends AbstractComponents {
 		Boolean isItemPresent = cartProducts.stream()
 				.anyMatch(e -> e.findElement(By.tagName("h3")).getText().equalsIgnoreCase(productName));
 		return isItemPresent;
+	}
+	
+	// Go to checkout page
+	public void goToCheckOutPage(String cvv) {
+		checkOutBtn.click();
 	}
 
 }

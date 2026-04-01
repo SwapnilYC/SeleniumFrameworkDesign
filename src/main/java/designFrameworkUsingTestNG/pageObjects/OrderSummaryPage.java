@@ -26,9 +26,6 @@ public class OrderSummaryPage extends AbstractComponents {
 
 // Locators/Elements------------------------------------------------------------------------------------
 	// PageFactory Annotation
-	@FindBy(xpath = "// div[@class='actions']//a")
-	WebElement placeOrderBtn;
-
 	@FindBy(tagName = "h1")
 	WebElement confirmationMessageEl;
 
@@ -38,7 +35,6 @@ public class OrderSummaryPage extends AbstractComponents {
 // Methods/Actions On Elements----------------------------------------------------------------------------
 //	check isOrderPlaced
 	public Boolean isOrderPlaced(){
-		placeOrderBtn.click();
 		waitForWebElementLocatedByToAppear(confirmationMessageBy);
 		String actualConfirmMessage = confirmationMessageEl.getText();
 		System.out.println(actualConfirmMessage);

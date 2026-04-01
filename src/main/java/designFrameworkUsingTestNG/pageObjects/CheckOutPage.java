@@ -26,26 +26,25 @@ public class CheckOutPage extends AbstractComponents {
 
 // Locators/Elements------------------------------------------------------------------------------------
 	// PageFactory Annotation
-	@FindBy(xpath = "//div[contains(@class,'subtotal')]//button")
-	WebElement checkOutBtn;
-
 	@FindBy(xpath = "(//input [@class='input txt'])[1]")
 	WebElement cvvField;
-	
+
 	@FindBy(xpath="//input[@placeholder='Select Country']")
 	WebElement enterCountryField;
 	
 	@FindBy(css="section [class*=list-group] button")
 	List<WebElement> countryList;
+	
+	@FindBy(xpath = "// div[@class='actions']//a")
+	WebElement placeOrderBtn;
 
 	// By locators
 	By cvvFieldBy = By.xpath("(//input [@class='input txt'])[1]");
 	By countryOptionsBy = By.cssSelector("section [class*=list-group]");
 
 // Methods/Actions On Elements----------------------------------------------------------------------------
-	// Go to checkout page
-	public void goToCheckOutPage(String cvv) {
-		checkOutBtn.click();
+	// Fill CVV
+	public void fillCVV(String cvv) {
 		waitForWebElementLocatedByToAppear(cvvFieldBy);
 		cvvField.sendKeys(cvv);
 	}
@@ -64,6 +63,12 @@ public class CheckOutPage extends AbstractComponents {
 			System.out.println("Country not found. Please try again later");
 			driver.quit();
 		}
+	}
+	
+//	Go to Order summary page
+	public OrderSummaryPage goToOrderSummaryPage(){
+		placeOrderBtn.click();
+		return new OrderSummaryPage(driver);
 	}
 
 }

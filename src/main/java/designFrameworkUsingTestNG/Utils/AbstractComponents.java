@@ -10,17 +10,19 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import designFrameworkUsingTestNG.pageObjects.CartPage;
+
 public class AbstractComponents {
 	WebDriver driver;
-	
+
 // Locators/Elements------------------------------------------------------------------------------------
 	// PageFactory Annotation
 	@FindBy(id = "toast-container")
 	WebElement toasterPopUp;
-	
+
 	@FindBy(css = ".ng-animating")
 	WebElement loaderOverlay;
-	
+
 	@FindBy(xpath = "//button[contains(@routerlink,'cart')]")
 	WebElement goToCartBtn;
 
@@ -45,7 +47,7 @@ public class AbstractComponents {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.invisibilityOf(el));
 	}
-	
+
 	// Wait to Disappear WebElement located By
 	public void waitForWebElementLocatedByToDisppear(By findBy) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -57,17 +59,19 @@ public class AbstractComponents {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.elementToBeClickable(el));
 	}
-	
+
 // Methods/Actions On Common Elements----------------------------------------------------------------------------
-	// 1. Header: goToCart Btn -> common for all pages -> can be clicked from any page
-		// Wait to appear toaster & disappear loader then click go to cart btn
-		public void goToCartPage() throws InterruptedException {
-			waitForWebElementToAppear(toasterPopUp);
-			waitForWebElementToDisppear(loaderOverlay);
-			// Watch lecture 164
-			Thread.sleep(1500);
+	// 1. Header: goToCart Btn -> common for all pages -> can be clicked from any
+	// page
+	// Wait to appear toaster & disappear loader then click go to cart btn
+	public CartPage goToCartPage() throws InterruptedException {
+		waitForWebElementToAppear(toasterPopUp);
+		waitForWebElementToDisppear(loaderOverlay);
+		// Watch lecture 164
+		Thread.sleep(1500);
 //			waitForWebElementToBeClickable(goToCartBtn);
-			goToCartBtn.click();
-		}
+		goToCartBtn.click();
+		return new CartPage(driver);
+	}
 
 }
