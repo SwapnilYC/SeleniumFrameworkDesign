@@ -1,4 +1,4 @@
-package DesignPrinciplesOfSeleniumFrameWork.UsingTestNG_TestingFramework;
+package designFrameworkUsingTestNG.tests;
 
 import java.time.Duration;
 import java.util.List;
