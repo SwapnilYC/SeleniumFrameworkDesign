@@ -1,6 +1,6 @@
 package designFrameworkUsingTestNG.pageObjects;
 
-// 2nd page
+// 3rd page
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -27,14 +27,14 @@ public class CartPage extends AbstractComponents {
 	// PageFactory Annotation
 	@FindBy(css = ".ng-animating")
 	WebElement loaderOverlay;
-	
+
 	@FindBy(id = "toast-container")
-	WebElement toasterPopUp;  
-	
-	@FindBy(xpath="//button[contains(@routerlink,'cart')]")
+	WebElement toasterPopUp;
+
+	@FindBy(xpath = "//button[contains(@routerlink,'cart')]")
 	WebElement goToCartBtn;
-	
-	@FindBy(xpath="//div[@class='cart']//li")
+
+	@FindBy(xpath = "//div[@class='cart']//li")
 	List<WebElement> cartProducts;
 
 	// By locators
@@ -51,14 +51,14 @@ public class CartPage extends AbstractComponents {
 		waitForWebElementToBeClickable(goToCartBtn);
 		goToCartBtn.click();
 	}
-	
-	// Wait for Elements to load in cart page & check that newly added product is present in cart
+
+	// Wait for Elements to load in cart page & check that newly added product is
+	// present in cart
 	public Boolean isProductPresent(String productName) {
 		waitForWebElementLocatedByToAppear(productsInCart);
 		Boolean isItemPresent = cartProducts.stream()
 				.anyMatch(e -> e.findElement(By.tagName("h3")).getText().equalsIgnoreCase(productName));
 		return isItemPresent;
 	}
-
 
 }

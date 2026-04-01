@@ -26,44 +26,25 @@ public class OrderSummaryPage extends AbstractComponents {
 
 // Locators/Elements------------------------------------------------------------------------------------
 	// PageFactory Annotation
-	@FindBy(xpath = "//div[contains(@class,'subtotal')]//button")
-	WebElement checkOutBtn;
+	@FindBy(xpath = "// div[@class='actions']//a")
+	WebElement placeOrderBtn;
 
-	@FindBy(xpath = "(//input [@class='input txt'])[1]")
-	WebElement cvvField;
-	
-	@FindBy(xpath="//input[@placeholder='Select Country']")
-	WebElement enterCountryField;
-	
-	@FindBy(css="section [class*=list-group] button")
-	List<WebElement> countryList;
+	@FindBy(tagName = "h1")
+	WebElement confirmationMessageEl;
 
 	// By locators
-	By cvvFieldBy = By.xpath("(//input [@class='input txt'])[1]");
-	By countryOptionsBy = By.cssSelector("section [class*=list-group]");
+	By confirmationMessageBy =By.tagName("h1");
 
 // Methods/Actions On Elements----------------------------------------------------------------------------
-	// Go to checkout page
-	public void goToCheckOutPage(String cvv) {
-		checkOutBtn.click();
-		waitForWebElementLocatedByToAppear(cvvFieldBy);
-		cvvField.sendKeys(cvv);
+//	check isOrderPlaced
+	public Boolean isOrderPlaced(){
+		placeOrderBtn.click();
+		waitForWebElementLocatedByToAppear(confirmationMessageBy);
+		String actualConfirmMessage = confirmationMessageEl.getText();
+		System.out.println(actualConfirmMessage);
+		String requiredConfirmationMessage = "Thankyou for the order.";
+		Boolean areMessageSame = actualConfirmMessage.equalsIgnoreCase(requiredConfirmationMessage);
+		return areMessageSame;
 	}
 	
-	// Select country
-	public void selectCountry(String countryInitials, String countryName) {
-		Actions a = new Actions(driver);
-		a.sendKeys(enterCountryField, countryInitials).build().perform();
-		waitForWebElementLocatedByToAppear(countryOptionsBy);
-		WebElement desiredCountry = countryList.stream()
-				.filter(country -> country.findElement(By.cssSelector("span")).getText().equalsIgnoreCase(countryName))
-				.findFirst().orElse(null);
-		if (desiredCountry != null) {
-			desiredCountry.click();
-		} else {
-			System.out.println("Country not found. Please try again later");
-			driver.quit();
-		}
-	}
-
 }
