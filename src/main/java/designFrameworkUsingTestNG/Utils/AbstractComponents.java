@@ -20,7 +20,7 @@ public class AbstractComponents {
 	@FindBy(id = "toast-container")
 	WebElement toasterPopUp;
 
-	@FindBy(css = ".ng-animating")
+	@FindBy(css = ".ngx-spinner-overlay")     // .ngx-spinner-overlay   OR .ng-animating
 	WebElement loaderOverlay;
 
 	@FindBy(xpath = "//button[contains(@routerlink,'cart')]")

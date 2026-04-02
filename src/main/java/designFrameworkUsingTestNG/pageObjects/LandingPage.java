@@ -34,6 +34,9 @@ public class LandingPage extends AbstractComponents {
 
 	@FindBy(id = "login")
 	WebElement loginBtn;
+	
+	@FindBy(xpath="//div[contains(@class,'toast-message')]")
+	WebElement wrongCredsErrorMsgToater;
 
 // Methods/Actions On Elements----------------------------------------------------------------------------
 
@@ -52,5 +55,14 @@ public class LandingPage extends AbstractComponents {
 		passwordfield.sendKeys(password);
 		loginBtn.click();
 		return new PoductCataloguePage(driver);
+	}
+	
+	public boolean getErrorMsgForWrongCreds() {
+		waitForWebElementToAppear(wrongCredsErrorMsgToater);
+		String actualWrongCredErrorMsg = wrongCredsErrorMsgToater.getText().trim();
+		String expectedWrongCredErrorMsg = " Incorrect email or password. ".trim();
+		System.out.println("Actual error Msg: "+actualWrongCredErrorMsg);
+		System.out.println("Expected error Msg: "+expectedWrongCredErrorMsg);
+		return expectedWrongCredErrorMsg.equals(actualWrongCredErrorMsg);
 	}
 }
