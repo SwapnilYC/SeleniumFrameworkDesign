@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="DesignFrameworkUsingTestNG">
+	<test thread-count="5" name="check order history">
+		<classes>
+			<class name="designFrameworkUsingTestNG.tests.SubmitOrderTest">
+				<methods>
+					<include name="checkOrederHistoryPage" />
+				</methods>
+			</class>
+		</classes>
+	</test> <!-- SubmitOrderTest: Contains 1 test(will pass) -->
+</suite> <!-- DesignFrameworkUsingTestNG -->

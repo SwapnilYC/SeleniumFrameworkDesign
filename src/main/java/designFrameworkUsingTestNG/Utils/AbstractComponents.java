@@ -20,11 +20,14 @@ public class AbstractComponents {
 	@FindBy(id = "toast-container")
 	WebElement toasterPopUp;
 
-	@FindBy(css = ".ngx-spinner-overlay")     // .ngx-spinner-overlay   OR .ng-animating
+	@FindBy(css = ".ngx-spinner-overlay") // .ngx-spinner-overlay OR .ng-animating
 	WebElement loaderOverlay;
 
 	@FindBy(xpath = "//button[contains(@routerlink,'cart')]")
 	WebElement goToCartBtn;
+
+	@FindBy(xpath = "//button[contains(@routerlink,'myOrders')]")
+	WebElement ordersBtn;
 
 	public AbstractComponents(WebDriver driver) {
 		this.driver = driver;
@@ -61,16 +64,21 @@ public class AbstractComponents {
 	}
 
 // Methods/Actions On Common Elements----------------------------------------------------------------------------
-	// 1. Header: goToCart Btn -> common for all pages -> can be clicked from any
-	// page
-	// Wait to appear toaster & disappear loader then click go to cart btn
+	// 1. Header: goToCart Btn -> common for all pages
 	public CartPage goToCartPage() throws InterruptedException {
+		// Wait to appear toaster & disappear loader then click go to cart btn
 		waitForWebElementToAppear(toasterPopUp);
 		waitForWebElementToDisppear(loaderOverlay);
 		// Watch lecture 164
 		Thread.sleep(1000);
 //			waitForWebElementToBeClickable(goToCartBtn);
 		goToCartBtn.click();
+		return new CartPage(driver);
+	}
+
+	// 2. Header: ORDERS Btn -> common for all pages
+	public CartPage goToOrders() throws InterruptedException {
+		ordersBtn.click();
 		return new CartPage(driver);
 	}
 
