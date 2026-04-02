@@ -49,9 +49,10 @@ public class SubmitOrderTest extends BaseTest {
 	}
 	
 	// Test orders history page for recently placed order
-	@Test
+	@Test(dependsOnMethods= {"submitOrderTest"})
 	public void checkOrederHistoryPage() {
 		landingPage.loginApp(userName, password);  // If logged in with same user this test will pass
+		landingPage.loginApp("vinayak.sheth2@gmail.com", "Vin@yakS26");  // this is valid user but havent added any product yet: Test will fail
 		MyOrdersPage ordersHistoryPage = new MyOrdersPage(driver);
 		Boolean isOrderPresent = ordersHistoryPage.getProductByName(productName);
 		Assert.assertTrue(isOrderPresent);
