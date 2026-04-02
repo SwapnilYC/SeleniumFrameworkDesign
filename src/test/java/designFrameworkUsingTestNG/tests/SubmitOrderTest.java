@@ -21,6 +21,7 @@ public class SubmitOrderTest extends BaseTest {
 	// Test end to end happy flow
 	@Test
 	public void submitOrderTest() throws InterruptedException, IOException {
+		System.out.println("1) SubmitOrderTest -> submitOrderTest"); // this is to check order of execution in parallel execution
 		// Data required for this specific method
 		String cvv = "123";
 		String countryInitials = "ind";
@@ -51,8 +52,9 @@ public class SubmitOrderTest extends BaseTest {
 	// Test orders history page for recently placed order
 	@Test(dependsOnMethods= {"submitOrderTest"})
 	public void checkOrederHistoryPage() {
+		System.out.println("2) SubmitOrderTest -> checkOrederHistoryPage");
 		landingPage.loginApp(userName, password);  // If logged in with same user this test will pass
-		landingPage.loginApp("vinayak.sheth2@gmail.com", "Vin@yakS26");  // this is valid user but havent added any product yet: Test will fail
+//		landingPage.loginApp("vinayak.sheth2@gmail.com", "Vin@yakS26");  // this is valid user but havent added any product yet: Test will fail
 		MyOrdersPage ordersHistoryPage = new MyOrdersPage(driver);
 		Boolean isOrderPresent = ordersHistoryPage.getProductByName(productName);
 		Assert.assertTrue(isOrderPresent);
