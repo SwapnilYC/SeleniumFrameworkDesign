@@ -23,35 +23,26 @@ public class SubmitOrderTest extends BaseTest {
 		String countryInitials = "ind";
 		String targetCountryName = "India";
 
-		// 1. landing page
-		// ------------------------------------------------------------------------------------------------
-		// moved to base test
+		// 1. landing page → moved to base test
 
-		// 2. Products catalog page -> Add desired product to
-		// cart-----------------------------------------------------------------------------------------------------------
+		// 2. Products catalog page-----------------------------------------------------------------------------------------------------------
 		PoductCataloguePage productCatPage = landingPage.loginApp(userName, password);
 		productCatPage.addTocart(productName);
 
-		// 3. Go to cart page & verify that our added product is
-		// present-----------------------------------------------------
+		// 3. Go to cart page---------------------------------------------------------------------------------------------------------------
 		CartPage cartPage = productCatPage.goToCartPage();
 		Assert.assertTrue(cartPage.isProductPresent(productName));
 
-		// 4. Go to checkOut page (enter cvv -> select
-		// country)--------------------------------------------------------------
+		// 4. Go to checkOut page-----------------------------------------------------------------------------------------------------------
 		CheckOutPage checkOutpage = cartPage.goToCheckOutPage();
 		checkOutpage.fillCVV(cvv);
 		checkOutpage.selectCountry(countryInitials, targetCountryName);
 
-		// 5. go to Order summary page & check is order placed
-		// successfully-------------------------------------------------
+		// 5. Order summary page------------------------------------------------------------------------------------------------------------
 		OrderSummaryPage summaryPage = checkOutpage.goToOrderSummaryPage();
 		Assert.assertTrue(summaryPage.isOrderPlaced());
 
-		// 6. Quit the
-		// browser----------------------------------------------------------------------------------------------
-		// moved to base test
-
+		// 6. Quit browser  → moved to base test
 	}
 
 }
