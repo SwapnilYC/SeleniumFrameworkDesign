@@ -5,8 +5,6 @@
 			<inlclude name="ErrorHandling" />
 		</run>
 	</groups>
-
-
 	<test name="ErrorValidationTest">
 		<classes>
 			<class
