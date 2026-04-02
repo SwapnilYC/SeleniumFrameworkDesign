@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite parallel="methods" thread-count="2" name="DesignFrameworkUsingTestNG">
-	<test  name="SubmitOrderTest">
+<suite name="DesignFrameworkUsingTestNG">
+	<groups>
+		<run>
+			<inlclude name="ErrorHandling" />
+		</run>
+	</groups>
+	<test name="SubmitOrderTest">
 		<classes>
 			<class name="designFrameworkUsingTestNG.tests.SubmitOrderTest" />
 		</classes>
@@ -14,6 +19,3 @@
 	</test> <!-- ErrorValidationTest: contains 2 test cases (Will fail both) -->
 
 </suite> <!-- DesignFrameworkUsingTestNG -->
-
-
-<!-- Parallel execution by methods -->

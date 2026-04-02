@@ -12,7 +12,7 @@ import designFrameworkUsingTestNG.reusableTestComponents.BaseTest;
 public class ErrorValidationsTest extends BaseTest {
 	
 	// Login with Wrong credentials & validate do we get correct error message
-	@Test
+	@Test(groups={"ErrorHandling"})
 	public void wrongCredsLoginValidation() {
 		System.out.println("3) ErrorValidationsTest -> wrongCredsLoginValidation");
 		// Data required to feed

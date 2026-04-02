@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="methods" thread-count="5" name="DesignFrameworkUsingTestNG">
+	<test  name="SubmitOrderTest">
+		<classes>
+			<class name="designFrameworkUsingTestNG.tests.SubmitOrderTest" />
+		</classes>
+	</test> <!-- SubmitOrderTest: Contains 2 tests(will pass) -->
+
+	<test name="ErrorValidationTest">
+		<classes>
+			<class
+				name="designFrameworkUsingTestNG.tests.ErrorValidationsTest" />
+		</classes>
+	</test> <!-- ErrorValidationTest: contains 2 test cases (Will fail both) -->
+
+</suite> <!-- DesignFrameworkUsingTestNG -->
+
+
+<!-- Parallel execution by methods
+
+This may fail if WebDriver is not thread-safe.
+
+Reason:
+- parallel="methods" runs multiple test methods in parallel within the same <test> tag
+- If a single WebDriver instance is shared across threads, it leads to conflicts
+- Multiple threads try to control the same browser at the same time
+
+Result:
+- Tests become unstable (flaky)
+- Unexpected failures occur
+
+Solution:
+- Use ThreadLocal WebDriver to create separate driver instances per thread
+
+-->
