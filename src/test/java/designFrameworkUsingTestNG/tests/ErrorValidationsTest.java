@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import designFrameworkUsingTestNG.pageObjects.CartPage;
 import designFrameworkUsingTestNG.pageObjects.PoductCataloguePage;
 import designFrameworkUsingTestNG.reusableTestComponents.BaseTest;
+import designFrameworkUsingTestNG.reusableTestComponents.RetryMechanism;
 
 public class ErrorValidationsTest extends BaseTest {
 
@@ -27,7 +28,7 @@ public class ErrorValidationsTest extends BaseTest {
 	}
 
 	// Wrong product validation
-	@Test
+	@Test(retryAnalyzer=RetryMechanism.class)
 	public void productErrorValidation() throws InterruptedException, IOException {
 		System.out.println("4) ErrorValidationsTest -> productErrorValidation");
 		// Data required to feed

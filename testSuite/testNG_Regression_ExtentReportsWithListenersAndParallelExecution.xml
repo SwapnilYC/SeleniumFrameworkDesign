@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="DesignFrameworkUsingTestNG">
+<suite parallel="tests" thread-count="5" name="DesignFrameworkUsingTestNG">
 	<listeners>
 		<listener
 			class-name="designFrameworkUsingTestNG.reusableTestComponents.Listeners" />

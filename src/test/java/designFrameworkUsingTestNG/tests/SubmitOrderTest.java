@@ -14,6 +14,7 @@ import designFrameworkUsingTestNG.pageObjects.MyOrdersPage;
 import designFrameworkUsingTestNG.pageObjects.OrderSummaryPage;
 import designFrameworkUsingTestNG.pageObjects.PoductCataloguePage;
 import designFrameworkUsingTestNG.reusableTestComponents.BaseTest;
+import designFrameworkUsingTestNG.reusableTestComponents.RetryMechanism;
 
 public class SubmitOrderTest extends BaseTest {
 	// Test end to end happy flow
@@ -51,7 +52,7 @@ public class SubmitOrderTest extends BaseTest {
 	}
 	
 	// Test orders history page for recently placed order
-	@Test(dependsOnMethods= {"submitOrderTest"}, dataProviderClass=DataProviderClass1.class, dataProvider="getLoginData")
+	@Test(dependsOnMethods= {"submitOrderTest"}, dataProviderClass=DataProviderClass1.class, dataProvider="getLoginData", retryAnalyzer=RetryMechanism.class)
 	public void checkOrederHistoryPage(String userName1, String password1, String productName1) {
 		productName1 = productName1.toUpperCase();
 		System.out.println("2) SubmitOrderTest -> checkOrederHistoryPage");
