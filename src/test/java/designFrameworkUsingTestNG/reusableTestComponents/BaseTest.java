@@ -1,5 +1,6 @@
 package designFrameworkUsingTestNG.reusableTestComponents;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -85,6 +89,17 @@ public class BaseTest {
 				new TypeReference<List<HashMap<String, String>>>() {
 				});
 		return data;
+	}
+
+// Take screenshot on failure
+	public String getScreenShot(String testCaseName) throws IOException {
+		String rootDir = System.getProperty("user.dir");
+		String screenShotsPath = rootDir + "/reports/ScreenShots"+ testCaseName + ".png";
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File src = ts.getScreenshotAs(OutputType.FILE);
+		File dest = new File(screenShotsPath);
+		FileUtils.copyFile(src, dest);
+		return screenShotsPath;
 	}
 
 }
