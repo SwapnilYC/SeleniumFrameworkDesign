@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="DesignFrameworkUsingTestNG">
+	<test name="checkDataProviderFunctionality">
+		<groups>
+			<run>
+				<include name="purchaseOrder" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="designFrameworkUsingTestNG.tests.ErrorValidationsTest" /><!-- SubmitOrderTest: Contains 2 tests(only one in grouping) -->
+			<class name="designFrameworkUsingTestNG.tests.SubmitOrderTest" /> <!-- SubmitOrderTest: Contains 2 tests(No grouping) -->
+		</classes>
+	</test> 
+</suite> <!-- This script will execute only one test -->
+
+
+<!-- for each type of grouping there must be seperatetestNG.xml file-->
+
