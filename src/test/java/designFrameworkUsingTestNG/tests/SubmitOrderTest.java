@@ -1,6 +1,7 @@
 package designFrameworkUsingTestNG.tests;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,8 +16,14 @@ import designFrameworkUsingTestNG.reusableTestComponents.DataProviderClass;
 
 public class SubmitOrderTest extends BaseTest {
 	// Test end to end happy flow
-	@Test(dataProviderClass=DataProviderClass.class, dataProvider="getFullData", groups= {"purchaseOrder"})
-	public void submitOrderTest(String userName1, String password1, String productName1, String cvv, String countryInitials, String targetCountryName) throws InterruptedException, IOException {
+	@Test(dataProviderClass=DataProviderClass.class, dataProvider="getDataFromHashMap", groups= {"purchaseOrder"})
+	public void submitOrderTest(HashMap<String,String> input) throws InterruptedException, IOException {
+		String userName1 = input.get("email"); 
+		String password1 = input.get("password");
+		String productName1 = input.get("productName");
+		String cvv= input.get("cvv");
+		String countryInitials = input.get("countryInitials");
+		String targetCountryName = input.get("countryName");
 		System.out.println("1) SubmitOrderTest -> submitOrderTest"); // this is to check order of execution in parallel execution
 		productName1 = productName1.toUpperCase();
 		// 1. landing page → moved to base test

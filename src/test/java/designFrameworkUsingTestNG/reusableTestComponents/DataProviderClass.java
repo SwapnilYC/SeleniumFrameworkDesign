@@ -1,5 +1,7 @@
 package designFrameworkUsingTestNG.reusableTestComponents;
 
+import java.util.HashMap;
+
 import org.testng.annotations.DataProvider;
 
 public class DataProviderClass {
@@ -22,5 +24,17 @@ public class DataProviderClass {
 //				{ "prashantShethManus2@gmail.com", "IamKing@123", "ZARA COAT 3" },
 //				{ "prashantShethManus3@gmail.com", "IamKing@123", "iphone 13 pro"} 
 		};
+	}
+	
+	@DataProvider
+	public Object[][] getDataFromHashMap() {
+		HashMap<Object,Object> map = new HashMap<>();
+		map.put("email", "vinayak.sheth@gmail.com");
+		map.put("password", "Vin@yakS26");
+		map.put("productName", "ADIDAS ORIGINAL");
+		map.put("cvv", "123");
+		map.put("countryInitials", "u");
+		map.put("countryName", "Anguilla");
+		return new Object[][] {{map}};
 	}
 }
