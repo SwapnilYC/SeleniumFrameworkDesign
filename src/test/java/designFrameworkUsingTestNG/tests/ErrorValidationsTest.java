@@ -3,7 +3,6 @@ package designFrameworkUsingTestNG.tests;
 import java.io.IOException;
 
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import designFrameworkUsingTestNG.pageObjects.CartPage;
@@ -52,15 +51,3 @@ public class ErrorValidationsTest extends BaseTest {
 
 }
 
-/*
- * 👉 How to club various test together? ----------------> - Suppose there are
- * 1000's are test cases - It is not advisable to create a separate class for
- * each test (like wrong login creds, product error test, simple end to end
- * flow) - In such case we need to club tests according to functionality - Like
- * - Login related test cases : Suppose there are 5 test cases related to login
- * functionality club them together(Including -ve & +ve) in
- * LoginValidationTests.java - ProductCart related testCases : Similarly do this
- * for this page - All these go with sprint by sprint - For each sprints this
- * changes(clubbing test cases)
- * 
- */

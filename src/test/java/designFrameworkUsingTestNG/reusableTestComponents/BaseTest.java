@@ -94,7 +94,7 @@ public class BaseTest {
 // Take screenshot on failure
 	public String getScreenShot(String testCaseName, WebDriver driver) throws IOException {
 		String rootDir = System.getProperty("user.dir");
-		String screenShotsPath = rootDir + "/reports/"+ testCaseName + ".png";
+		String screenShotsPath = rootDir + "/Reports/ExtentScreenShots/"+ testCaseName + ".png";
 		TakesScreenshot ts = (TakesScreenshot) driver;  // driver is initialized inside initialization method. So at this point driver has no life. Hence life is coming from listeners
 		File src = ts.getScreenshotAs(OutputType.FILE);
 		File dest = new File(screenShotsPath);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="DesignFrameworkUsingTestNG">
 	<listeners>
-		<listerner
-			name="designFrameworkUsingTestNG.reusableTestComponents.Listeners" />
+		<listener
+			class-name="designFrameworkUsingTestNG.reusableTestComponents.Listeners" />
 	</listeners>
 	<test name="Error Validations Tests only">
 		<groups>

@@ -19,7 +19,6 @@ public class Listeners extends BaseTest implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 		test = extent.createTest(result.getMethod().getMethodName());
-		System.out.println("Listeners are working");
 		ITestListener.super.onTestStart(result);
 	}
 
@@ -30,7 +29,6 @@ public class Listeners extends BaseTest implements ITestListener {
 			driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
 			// fields are associated with class not the methods
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.getMessage();
 		}
 		
@@ -59,7 +57,6 @@ public class Listeners extends BaseTest implements ITestListener {
 
 	@Override
 	public void onFinish(ITestContext context) {
-		ITestListener.super.onFinish(context);
 		extent.flush();
 	}
 
