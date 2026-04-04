@@ -1,0 +1,51 @@
+[
+	{ 
+		"email" : "vinayak.sheth@gmail.com", 
+		"password" : "Vin@yakS26", 
+		"productName" : "ADIDAS ORIGINAL", 
+		"cvv" : "123", 
+		"countryInitials" : "u", 
+		"countryName" : "Anguilla" 
+	},
+	{ 
+		"email" : "vinayak.sheth2@gmail.com", 
+		"password" : "Vin@yakS26", 
+		"productName" : "ZARA COAT 3", 
+		"cvv" : "890", 
+		"countryInitials" : "s", 
+		"countryName" : "Afghanistan" 
+	},
+	{ 
+		"email" : "vinayak.sheth3@gmail.com", 
+		"password" : "Vin@yakS26", 
+		"productName" : "iphone 13 pro", 
+		"cvv" : "727", 
+		"countryInitials" : "ind", 
+		"countryName" : "India" 
+	},
+	{ 
+		"email" : "prashantShethManus1@gmail.com", 
+		"password" : "IamKing@123", 
+		"productName" : "ADIDAS ORIGINAL", 
+		"cvv" : "567", 
+		"countryInitials" : "us", 
+		"countryName" : "Mauritius" 
+	},
+	{ 
+		"email" : "prashantShethManus2@gmail.com", 
+		"password" : "IamKing@123", 
+		"productName" : "ZARA COAT 3", 
+		"cvv" : "427", 
+		"countryInitials" : "y", 
+		"countryName" :  "Cayman Islands" 
+	},
+	{ 
+		"email" : "prashantShethManus3@gmail.com", 
+		"password" : "IamKing@123", 
+		"productName" : "iphone 13 pro", 
+		"cvv" : "558", 
+		"countryInitials" : "rr", 
+		"countryName" : "Montserrat" 
+	}
+
+]

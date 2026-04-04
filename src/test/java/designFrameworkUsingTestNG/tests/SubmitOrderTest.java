@@ -6,17 +6,18 @@ import java.util.HashMap;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import designFrameworkUsingTestNG.data.DataProviderClass1;
+import designFrameworkUsingTestNG.data.DataProviderClass2;
 import designFrameworkUsingTestNG.pageObjects.CartPage;
 import designFrameworkUsingTestNG.pageObjects.CheckOutPage;
 import designFrameworkUsingTestNG.pageObjects.MyOrdersPage;
 import designFrameworkUsingTestNG.pageObjects.OrderSummaryPage;
 import designFrameworkUsingTestNG.pageObjects.PoductCataloguePage;
 import designFrameworkUsingTestNG.reusableTestComponents.BaseTest;
-import designFrameworkUsingTestNG.reusableTestComponents.DataProviderClass;
 
 public class SubmitOrderTest extends BaseTest {
 	// Test end to end happy flow
-	@Test(dataProviderClass=DataProviderClass.class, dataProvider="getDataFromHashMap", groups= {"purchaseOrder"})
+	@Test(dataProviderClass=DataProviderClass2.class, dataProvider="getDataFromJasonFile", groups= {"purchaseOrder"})
 	public void submitOrderTest(HashMap<String,String> input) throws InterruptedException, IOException {
 		String userName1 = input.get("email"); 
 		String password1 = input.get("password");
@@ -50,7 +51,7 @@ public class SubmitOrderTest extends BaseTest {
 	}
 	
 	// Test orders history page for recently placed order
-	@Test(dependsOnMethods= {"submitOrderTest"}, dataProviderClass=DataProviderClass.class, dataProvider="getLoginData")
+	@Test(dependsOnMethods= {"submitOrderTest"}, dataProviderClass=DataProviderClass1.class, dataProvider="getLoginData")
 	public void checkOrederHistoryPage(String userName1, String password1, String productName1) {
 		productName1 = productName1.toUpperCase();
 		System.out.println("2) SubmitOrderTest -> checkOrederHistoryPage");
