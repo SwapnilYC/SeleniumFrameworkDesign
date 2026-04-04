@@ -42,7 +42,6 @@ public class Listeners extends BaseTest implements ITestListener {
 		try {
 			screenshotPath = getScreenShot(methodName, driver);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		test.addScreenCaptureFromPath(screenshotPath, methodName);

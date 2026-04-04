@@ -20,6 +20,7 @@ failsafe-reports/
 
 # Screenshots
 screenshots/
+Reports/
 
 # IDE
 .idea/

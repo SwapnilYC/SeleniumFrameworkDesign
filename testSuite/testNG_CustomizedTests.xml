@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="DesignFrameworkUsingTestNG">
+<test name="SubmitOrderTest">
+		<classes>
+			<class
+				name="designFrameworkUsingTestNG.tests.SubmitOrderTest">
+			</class>
+		</classes>
+	</test> <!-- ErrorValidationTest: contains 2 test cases (Will fail both) -->
+	<test name="ErrorValidationTest">
+		<classes>
+			<class
+				name="designFrameworkUsingTestNG.tests.ErrorValidationsTest">
+			</class>
+		</classes>
+	</test> <!-- ErrorValidationTest: contains 2 test cases (Will fail both) -->
+
+</suite> <!-- DesignFrameworkUsingTestNG -->

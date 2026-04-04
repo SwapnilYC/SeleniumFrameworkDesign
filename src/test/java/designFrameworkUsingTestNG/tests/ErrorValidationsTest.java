@@ -20,10 +20,10 @@ public class ErrorValidationsTest extends BaseTest {
 		String wrongUserName = "ShethManus1@gmail.com";
 		String wrongPassword = "IamKing";
 		landingPage.loginApp(wrongUserName, wrongPassword);
-//		Assert.assertTrue(landingPage.getErrorMsgForWrongCreds());  // this msg will give are the error msgs same(expected & actual)
+		Assert.assertTrue(landingPage.getErrorMsgForWrongCreds());  // this msg will give are the error msgs same(expected & actual)
 
 		// Following is written to deliberately fails the test
-		Assert.assertEquals(" Incorrect email or password. ", "Incorrect email or password.");
+//		Assert.assertEquals(" Incorrect email or password. ", "Incorrect email or password.");
 	}
 
 	// Wrong product validation

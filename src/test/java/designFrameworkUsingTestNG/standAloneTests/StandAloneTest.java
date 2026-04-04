@@ -1,4 +1,4 @@
-package designFrameworkUsingTestNG.tests;
+package designFrameworkUsingTestNG.standAloneTests;
 
 import java.time.Duration;
 import java.util.List;
