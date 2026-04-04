@@ -6,7 +6,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 public class ExtentReporterNG {
 	public static ExtentReports getReportObject() {
 		String rootDir = System.getProperty("user.dir");
-		String path = rootDir + "/reports/ExtentHTMLReport/index.html";
+		String path = rootDir + "/reports/index.html";
 		ExtentSparkReporter reporter = new ExtentSparkReporter(path);
 		reporter.config().setDocumentTitle("Ecommerce Website Demo reports");
 		reporter.config().setReportName("Main website's extent report");

@@ -19,13 +19,8 @@ public class Listeners extends BaseTest implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 		test = extent.createTest(result.getMethod().getMethodName());
+		System.out.println("Listeners are working");
 		ITestListener.super.onTestStart(result);
-	}
-
-	@Override
-	public void onTestSuccess(ITestResult result) {
-		ITestListener.super.onTestSuccess(result);
-		test.log(Status.PASS, result.getMethod().getMethodName() + " is passed");
 	}
 
 	@Override
@@ -33,6 +28,7 @@ public class Listeners extends BaseTest implements ITestListener {
 		// Giving life to driver
 		try {
 			driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
+			// fields are associated with class not the methods
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.getMessage();
@@ -53,26 +49,12 @@ public class Listeners extends BaseTest implements ITestListener {
 		}
 		test.addScreenCaptureFromPath(screenshotPath, methodName);
 	}
+	
 
 	@Override
-	public void onTestSkipped(ITestResult result) {
-		ITestListener.super.onTestSkipped(result);
-	}
-
-	@Override
-	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-		// Take screenshot
-		ITestListener.super.onTestFailedButWithinSuccessPercentage(result);
-	}
-
-	@Override
-	public void onTestFailedWithTimeout(ITestResult result) {
-		ITestListener.super.onTestFailedWithTimeout(result);
-	}
-
-	@Override
-	public void onStart(ITestContext context) {
-
+	public void onTestSuccess(ITestResult result) {
+		ITestListener.super.onTestSuccess(result);
+		test.log(Status.PASS, result.getMethod().getMethodName() + " is passed");
 	}
 
 	@Override
