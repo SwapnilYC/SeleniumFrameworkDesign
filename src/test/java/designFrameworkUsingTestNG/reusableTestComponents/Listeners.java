@@ -11,15 +11,17 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
+
 public class Listeners extends BaseTest implements ITestListener {
 
 	ExtentReports extent = ExtentReporterNG.getReportObject();
 	ExtentTest test;
-
+	ThreadLocal<ExtentTest> threadSafeExtentTestObj = new ThreadLocal<ExtentTest>();
+	
 	@Override
 	public void onTestStart(ITestResult result) {
 		test = extent.createTest(result.getMethod().getMethodName());
-		ITestListener.super.onTestStart(result);
+		threadSafeExtentTestObj.set(test);
 	}
 
 	@Override
@@ -33,8 +35,8 @@ public class Listeners extends BaseTest implements ITestListener {
 		}
 		
 		// logging the method name & error message
-		test.log(Status.FAIL, result.getMethod().getMethodName() + " is failed");
-		test.fail(result.getThrowable()); // result.getThrowable() -> Gives the error msg
+		threadSafeExtentTestObj.get().log(Status.FAIL, result.getMethod().getMethodName() + " is failed");
+		threadSafeExtentTestObj.get().fail(result.getThrowable()); // result.getThrowable() -> Gives the error msg
 		
 		// Take & attach screenshot
 		String methodName = result.getMethod().getMethodName();
@@ -44,14 +46,13 @@ public class Listeners extends BaseTest implements ITestListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		test.addScreenCaptureFromPath(screenshotPath, methodName);
+		threadSafeExtentTestObj.get().addScreenCaptureFromPath(screenshotPath, methodName);
 	}
 	
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		ITestListener.super.onTestSuccess(result);
-		test.log(Status.PASS, result.getMethod().getMethodName() + " is passed");
+		threadSafeExtentTestObj.get().log(Status.PASS, result.getMethod().getMethodName() + " is passed");
 	}
 
 	@Override
