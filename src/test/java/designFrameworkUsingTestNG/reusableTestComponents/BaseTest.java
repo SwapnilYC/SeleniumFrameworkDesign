@@ -2,7 +2,11 @@ package designFrameworkUsingTestNG.reusableTestComponents;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import org.openqa.selenium.Dimension;
@@ -13,11 +17,17 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import designFrameworkUsingTestNG.pageObjects.LandingPage;
 
 public class BaseTest {
 	public WebDriver driver;
 	public LandingPage landingPage;
+
 	public WebDriver initializeDriver() throws IOException {
 
 		// Properties from properties class
@@ -28,7 +38,8 @@ public class BaseTest {
 		prop.load(fisObj1);
 
 		// Extract browser value
-		String browser = prop.getProperty("Browser").trim().toLowerCase();;
+		String browser = prop.getProperty("Browser").trim().toLowerCase();
+		;
 
 		// Compare browser value & initialize webdriver accordingly
 		if (browser.equalsIgnoreCase("chrome")) {
@@ -43,16 +54,37 @@ public class BaseTest {
 		return driver;
 	}
 
-	@BeforeMethod(alwaysRun=true)
+	@BeforeMethod(alwaysRun = true)
 	public void launchApp() throws IOException {
 		this.driver = initializeDriver();
 		landingPage = new LandingPage(driver);
 		landingPage.goTo();
 	}
-	
-	@AfterMethod(alwaysRun=true)
+
+	@AfterMethod(alwaysRun = true)
 	public void tearDown() {
 		this.driver.quit();
+	}
+
+// convert jasonData TO Map
+	public static List<HashMap<String, String>> getJsonDataToMap(String filePath)
+			throws JsonMappingException, JsonProcessingException {
+
+		String jsonFilePath = filePath;
+		String jsonContent;
+		// convert jason to string (inbuilt)
+		try {
+			jsonContent = new String(Files.readAllBytes(Paths.get(jsonFilePath)));
+		} catch (Exception e) {
+			throw new RuntimeException("Error reading JSON file", e);
+		}
+
+		// convert string into list of Hashmaps (Must use jackson dataBind dependency)
+		ObjectMapper mapper = new ObjectMapper();
+		List<HashMap<String, String>> data = mapper.readValue(jsonContent,
+				new TypeReference<List<HashMap<String, String>>>() {
+				});
+		return data;
 	}
 
 }
